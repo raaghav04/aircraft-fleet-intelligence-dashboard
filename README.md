@@ -68,7 +68,7 @@ This system serves as:
 
 ### Dashboard Overview
 
-<img width="1344" height="709" alt="dashboard_metrics_insights" src="https://github.com/user-attachments/assets/a83b5ea8-901e-4d6f-942e-034f451c13a0" />
+![Dashboard Overview](screenshots/dashboard_metrics_insights.png)
 
 **Highlights**
 
@@ -81,7 +81,7 @@ This system serves as:
 
 ### Flight Logs & Maintenance Alerts
 
-<img width="1110" height="477" alt="dashboard_flight_logs" src="https://github.com/user-attachments/assets/e50c901d-7c86-4c38-bd2d-14108f924b08" />
+![Flight Logs & Maintenance Alerts](screenshots/dashboard_flight_logs.png)
 
 **Highlights**
 
@@ -94,7 +94,7 @@ This system serves as:
 
 ### Fleet Status Control Center
 
-<img width="1346" height="765" alt="fleet_status" src="https://github.com/user-attachments/assets/fe271117-5ff2-4fab-8eef-366bef67f374" />
+![Fleet Status Control Center](screenshots/fleet_status.png)
 
 **Highlights**
 
@@ -107,7 +107,7 @@ This system serves as:
 
 ### Flight Archive Registry
 
-<img width="1365" height="767" alt="flight_logs_archive" src="https://github.com/user-attachments/assets/1e078dda-d645-43ec-9981-b076170651cb" />
+![Flight Archive Registry](screenshots/flight_logs_archive.png)
 
 **Highlights**
 
@@ -120,7 +120,7 @@ This system serves as:
 
 ### Fuel Efficiency & Performance Analytics
 
-<img width="1365" height="767" alt="fuel_efficiency_charts" src="https://github.com/user-attachments/assets/ef2307d4-6b2f-49c2-9516-e6e4078fb0bd" />
+![Fuel Efficiency & Performance Analytics](screenshots/fuel_efficiency_charts.png)
 
 **Highlights**
 
@@ -133,7 +133,7 @@ This system serves as:
 
 ### Settings & Dispatch Suite
 
-<img width="1346" height="767" alt="manual_dispatcher_suite" src="https://github.com/user-attachments/assets/92e58ced-7464-4957-8baa-feeb0f1f34cc" />
+![Settings & Dispatch Suite](screenshots/manual_dispatcher_suite.png)
 
 **Highlights**
 
@@ -146,7 +146,7 @@ This system serves as:
 
 ### Telemetry Anomaly Injector
 
-<img width="484" height="222" alt="anomaly_injector" src="https://github.com/user-attachments/assets/6b84e93c-7b5a-433c-93e1-5012173f9f2b" />
+![Telemetry Anomaly Injector](screenshots/anomaly_injector.png)
 
 **Highlights**
 
