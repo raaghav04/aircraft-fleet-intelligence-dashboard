@@ -1,0 +1,8 @@
+{
+  "name": "GlobalFleet: Aircraft Fleet Intelligence Dashboard",
+  "description": "A commercial aviation fleet logistics and analytics platform to monitor aircraft utilization, analyze fuel burn telemetry, track airframe flight hours, and automate predictive maintenance inspection alerts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
