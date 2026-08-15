@@ -330,7 +330,7 @@ export default defineConfig({
 * Advanced analytics dashboards
 * Role-based access control
 * Exportable reports
-* Live airline simulation layer
+* Live airline operations simulation
 
 ---
 

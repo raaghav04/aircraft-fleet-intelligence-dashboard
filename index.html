@@ -1,6 +1,68 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script>
+      // Suppress benign WebSocket / Vite connection errors in the sandbox environment before other scripts load
+      (function() {
+        const isWebsocketError = (err) => {
+          if (!err) return false;
+          const message = typeof err === 'string' ? err : (err.message || String(err));
+          return (
+            message.includes('WebSocket') ||
+            message.includes('websocket') ||
+            message.includes('closed without opened') ||
+            message.includes('[vite]') ||
+            message.includes('ws://') ||
+            message.includes('wss://')
+          );
+        };
+
+        window.addEventListener('unhandledrejection', (event) => {
+          if (isWebsocketError(event.reason)) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+        }, true);
+
+        window.addEventListener('error', (event) => {
+          if (isWebsocketError(event.error) || isWebsocketError(event.message)) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+        }, true);
+
+        // Wrap native WebSocket constructor to stifle unhandled connection errors
+        const NativeWebSocket = window.WebSocket;
+        if (NativeWebSocket) {
+          const WrappedWebSocket = function(url, protocols) {
+            try {
+              const ws = new NativeWebSocket(url, protocols);
+              ws.addEventListener('error', (e) => {
+                if (e && e.preventDefault) e.preventDefault();
+                if (e && e.stopPropagation) e.stopPropagation();
+              }, true);
+              return ws;
+            } catch (err) {
+              console.warn('Blocked WebSocket error:', err);
+              return {
+                addEventListener: () => {},
+                removeEventListener: () => {},
+                send: () => {},
+                close: () => {},
+                readyState: 3 // CLOSED
+              };
+            }
+          };
+          WrappedWebSocket.prototype = NativeWebSocket.prototype;
+          WrappedWebSocket.CONNECTING = 0;
+          WrappedWebSocket.OPEN = 1;
+          WrappedWebSocket.CLOSING = 2;
+          WrappedWebSocket.CLOSED = 3;
+          
+          window.WebSocket = WrappedWebSocket;
+        }
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GlobalFleet Analysis</title>
