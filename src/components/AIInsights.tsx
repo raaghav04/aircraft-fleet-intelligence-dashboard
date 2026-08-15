@@ -16,22 +16,32 @@ export function AIInsights({ flights, selectedAirline = "All Airlines", selected
 
   const generateInsights = async () => {
     setLoading(true);
-    // Prepare a summary for AI
+    const sampledFlights = [...flights].sort(() => 0.5 - Math.random()).slice(0, 15);
     const summary = {
       totalFlights: flights.length,
-      avgHours: flights.length > 0 ? flights.reduce((acc, f) => acc + f.flightHours, 0) / flights.length : 0,
-      avgEfficiency: flights.length > 0 ? flights.reduce((acc, f) => acc + (f.fuelBurned / f.flightHours), 0) / flights.length : 0,
-      recentTrends: flights.slice(0, 10).map(f => ({ date: f.date, efficiency: f.fuelBurned / f.flightHours }))
+      avgHours: flights.length > 0 ? Number((flights.reduce((acc, f) => acc + f.flightHours, 0) / flights.length).toFixed(2)) : 0,
+      avgEfficiency: flights.length > 0 ? Math.round(flights.reduce((acc, f) => acc + (f.fuelBurned / f.flightHours), 0) / flights.length) : 0,
+      recentTrends: sampledFlights.map(f => ({
+        flightId: f.id,
+        aircraftId: f.aircraftId,
+        date: f.date,
+        efficiency: Math.round(f.fuelBurned / f.flightHours)
+      }))
     };
 
     try {
-      const response = await fetch("/api/insights", {
+      const response = await fetch(`/api/insights?t=${Date.now()}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Cache-Control": "no-cache"
+        },
         body: JSON.stringify({
           flightSummary: summary,
           carrier: selectedAirline,
-          bodyType: selectedBodyType
+          bodyType: selectedBodyType,
+          timestamp: Date.now(),
+          randomNonce: Math.random().toString(36).substring(7)
         })
       });
       const data = await response.json();
@@ -66,7 +76,7 @@ export function AIInsights({ flights, selectedAirline = "All Airlines", selected
           {loading ? 'Analyzing...' : 'Refresh'}
         </button>
       </CardHeader>
-      <CardContent className="pt-0">
+      <CardContent>
         <AnimatePresence mode="wait">
           {loading ? (
             <motion.div 
@@ -86,7 +96,7 @@ export function AIInsights({ flights, selectedAirline = "All Airlines", selected
             >
               {insights.map((insight, i) => (
                 <motion.li 
-                   key={i}
+                  key={i}
                   initial={{ x: -10, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: i * 0.1 }}
@@ -103,3 +113,4 @@ export function AIInsights({ flights, selectedAirline = "All Airlines", selected
     </Card>
   );
 }
+
